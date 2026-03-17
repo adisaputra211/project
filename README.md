@@ -94,3 +94,6 @@ Aplikasi React akan berjalan di `http://localhost:5173`. Bisa login dengan:
 | └ price_score | 5.8% |
 | └ diskon | 0.5% |
 
+## UI
+<img width="1768" height="948" alt="image" src="https://github.com/user-attachments/assets/74a300e4-1056-4e0c-96ad-52ac5d2662a1" />
+
