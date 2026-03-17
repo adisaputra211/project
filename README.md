@@ -94,29 +94,3 @@ Aplikasi React akan berjalan di `http://localhost:5173`. Bisa login dengan:
 | └ price_score | 5.8% |
 | └ diskon | 0.5% |
 
-### Pola Prediksi (BALANCED)
-Model menggunakan **formula multi-faktor yang balance**:
-- ✅ **jumlah_penjualan (40%)**: semakin tinggi = semakin baik
-- ✅ **harga (35%)**: semakin rendah = semakin baik (harga murah lebih menarik)
-- ✅ **diskon (25%)**: semakin besar = semakin baik
-
-**Score = (sales_norm × 0.40) + (price_score × 0.35) + (discount_norm × 0.25)**
-
-Threshold: percentile 28 (mempertahankan ~72% Laris, ~28% Tidak)
-
-**Perubahan dari Model Sebelumnya:**
-- 1000 produk (20%) berubah status karena formula yang lebih balance
-- Produk dengan **harga tinggi + penjualan sedang** sekarang cenderung "Tidak"
-- Produk dengan **harga rendah + diskon besar** sekarang cenderung "Laris"
-
-**Contoh Perubahan:**
-- Produk dengan harga 178rb, penjualan 176 → dari "Laris" jadi "Tidak" 
-- Produk dengan harga 26rb, diskon 25%, penjualan 57 → dari "Tidak" jadi "Laris"
-
-## 🤔 Asumsi
-- Menggunakan `Random Forest` karena robust dan mudah di-deploy.
-- **Model belajar dari pola data asli** - jika di data Anda status hanya berdasarkan penjualan, maka model akan mengikuti pola tersebut.
-- Data CSV adalah data riil (5000 baris) dengan label asli.
-- Database riil disimulasikan menggunakan read-only file `csv`.
-- Autentikasi menggunakan dummy validation (username = "admin", password = "password").
-- `test_size=0.2` untuk evaluasi model.
