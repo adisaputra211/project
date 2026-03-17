@@ -15,38 +15,31 @@ norm_penjualan = df['jumlah_penjualan'] / df['jumlah_penjualan'].max()
 norm_harga = df['harga'] / df['harga'].max()
 norm_diskon = df['diskon'] / 100
 
-# === Price is KING: very high prices = automatic penalty ===
-# Price tiers:
-# - >70% max price: Very expensive (hard to be Laris)
-# - 40-70% max price: Medium (depends on other factors)
-# - <40% max price: Cheap (easy to be Laris)
 
 price_tier = np.where(
-    norm_harga > 0.7, 0,      # Very expensive = base 0
+    norm_harga > 0.7, 0,      
     np.where(
-        norm_harga > 0.4, 0.3,  # Medium = base 0.3
-        0.5                       # Cheap = base 0.5
+        norm_harga > 0.4, 0.3,  
+        0.5                       
     )
 )
 
-# Sales factor
+
 sales_factor = norm_penjualan * 0.5
 
-# Discount factor (small boost)
+
 discount_factor = norm_diskon * 0.15
 
-# Combined score with price tier as base
 score = price_tier + sales_factor + discount_factor
 
-# Add noise
+
 noise = np.random.normal(0, 0.12, len(df))
 score = score + noise
 
-# Threshold for ~70% Laris
 threshold = np.percentile(score, 30)
 new_status = np.where(score >= threshold, 'Laris', 'Tidak')
 
-# Update
+
 df['status'] = new_status
 df.to_csv('data/sales_data.csv', sep=';', index=False)
 print("✓ Data saved")

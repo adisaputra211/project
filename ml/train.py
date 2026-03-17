@@ -1,13 +1,3 @@
-"""
-Train ML model with BALANCED consideration of sales, price, and discount.
-
-KEY INSIGHT: The original CSV labels are dominated by jumlah_penjualan.
-To make all 3 factors matter, we need to create NEW labels that consider
-all three factors EQUALLY during training (in-memory, CSV unchanged).
-
-This is "semi-supervised" - we use the original features but create
-better labels that reflect multi-factor decision making.
-"""
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split

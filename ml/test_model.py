@@ -1,22 +1,21 @@
 import pickle
 import pandas as pd
 
-# Load model
+
 with open('ml/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-# Feature importance
+
 print('=== Feature Importance (Kontribusi terhadap prediksi) ===')
 for feat, imp in zip(['jumlah_penjualan', 'harga', 'diskon'], model.feature_importances_):
     print(f'{feat}: {imp:.4f} ({imp*100:.1f}%)')
 
-# Test prediksi dengan berbagai skenario
 print('\n=== Test Prediksi dengan Berbagai Skenario ===')
 test_cases = [
-    {'jumlah_penjualan': 250, 'harga': 50000, 'diskon': 20},  # Penjualan tinggi
-    {'jumlah_penjualan': 50, 'harga': 50000, 'diskon': 20},   # Penjualan rendah
-    {'jumlah_penjualan': 80, 'harga': 30000, 'diskon': 30},   # Harga rendah + diskon besar
-    {'jumlah_penjualan': 80, 'harga': 150000, 'diskon': 0},   # Harga tinggi + no diskon
+    {'jumlah_penjualan': 250, 'harga': 50000, 'diskon': 20},  
+    {'jumlah_penjualan': 50, 'harga': 50000, 'diskon': 20},  
+    {'jumlah_penjualan': 80, 'harga': 30000, 'diskon': 30},   
+    {'jumlah_penjualan': 80, 'harga': 150000, 'diskon': 0}, 
 ]
 
 for tc in test_cases:
